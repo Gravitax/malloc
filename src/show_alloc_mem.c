@@ -78,8 +78,3 @@
 // 		print_zone_chunks(zone, &total);
 // 	}
 // }
-
-void	    show_alloc_mem()
-{
-	
-}

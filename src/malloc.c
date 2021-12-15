@@ -2,5 +2,7 @@
 
 void        *malloc(size_t size) {
     (void)size;
-    return (NULL);
+    if (*zones_are_init() == false && zones_init() == -1)
+        return (NULL);
+    return (zones_split(size));
 }

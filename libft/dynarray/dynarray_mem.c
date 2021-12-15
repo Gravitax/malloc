@@ -6,28 +6,11 @@
 /*   By: maboye <maboye@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 18:04:09 by gedemais          #+#    #+#             */
-/*   Updated: 2020/08/08 20:16:37 by maboye           ###   ########.fr       */
+/*   Updated: 2021/12/15 19:06:41 by maboye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
-
-void	*alloc_content(size_t size)
-{
-	int			pagesize;
-	size_t		new;
-	void		*ptr;
-
-	new = 1;
-	pagesize = getpagesize();
-	while (new < size)
-		new += (size_t)pagesize;
-	ptr = mmap(NULL, new,
-		PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-	if (ptr == MAP_FAILED)
-		return (NULL);
-	return (ptr);
-}
 
 static int	realloc_content(t_dynarray *arr)
 {
@@ -55,7 +38,24 @@ int			check_space(t_dynarray *arr)
 	return (0);
 }
 
-int		dynarray_dump(t_dynarray *array, t_dynarray *dump)
+void		*alloc_content(size_t size)
+{
+	int			pagesize;
+	size_t		new;
+	void		*ptr;
+
+	new = 1;
+	pagesize = getpagesize();
+	while (new < size)
+		new += (size_t)pagesize;
+	ptr = mmap(NULL, new,
+		PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+	if (ptr == MAP_FAILED)
+		return (NULL);
+	return (ptr);
+}
+
+int			dynarray_dump(t_dynarray *array, t_dynarray *dump)
 {
 	ft_memcpy(dump, array, sizeof(t_dynarray));
 	if (!(dump->arr = alloc_content((size_t)dump->byte_size))

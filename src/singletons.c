@@ -9,16 +9,16 @@ int		page_size(void)
 	return (page_size);
 }
 
-// t_zone	*g_zones(unsigned int index)
-// {
-// 	static t_zone	zones[ZONE_MAX];
+t_zone	*get_zone(unsigned int index)
+{
+	static t_zone	zones[ZONE_MAX];
 
-// 	if (index >= ZONE_MAX)
-// 		return (NULL);
-// 	return (&zones[index]);
-// }
+	if (index >= ZONE_MAX)
+		return (NULL);
+	return (&zones[index]);
+}
 
-bool	*zone_init(void)
+bool	*zones_are_init(void)
 {
 	static bool	var = false;
 

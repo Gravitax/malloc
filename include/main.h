@@ -1,34 +1,67 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: maboye <maboye@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/05 00:02:04 by gedemais          #+#    #+#             */
-/*   Updated: 2021/12/15 14:25:05 by maboye           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef MAIN_H
 # define MAIN_H
 
-# include <unistd.h>
-# include <stdlib.h>
-# include <sys/mman.h>
+# define MAX_NAME 64
+# define MIN_ALLOC 100
+
+# include <stdio.h>
 # include <sys/resource.h>
+# include <limits.h>
+# include <assert.h>
 
 # include "libft.h"
+
+enum			e_zones
+{
+	ZONE_TINY,
+	ZONE_SMALL,
+	ZONE_LARGE,
+	ZONE_MAX
+};
+
+enum			e_zone_size
+{
+	ZS_TINY = 16,
+	ZS_SMALL = 1024,
+	ZS_LARGE = INT_MAX
+};
+
+typedef struct	s_chunk
+{
+	int64_t	addr;
+	size_t	size;
+	int		page;
+	int		zone;
+}				t_chunk;
+
+typedef struct	s_page
+{
+	int64_t		addr;
+	size_t		size;
+	int			frees;
+}				t_page;
+
+typedef struct	s_zone
+{
+	t_dynarray	pages;
+	t_dynarray	chunks;
+	char		name[MAX_NAME];
+	size_t		chunks_size;
+	int			chunks_total;
+	int			id;
+}				t_zone;
 
 void			free(void *ptr);
 void			*malloc(size_t size);
 void			*realloc(void *ptr, size_t size);
 
+int             zones_init();
+
 void			show_alloc_mem();
 
 int				page_size();
-// t_zone			*g_zones(unsigned int index);
-bool			*zone_init();
+t_zone			*get_zone(unsigned int index);
+bool			*zones_are_init();
 bool			*debug();
 
 #endif
