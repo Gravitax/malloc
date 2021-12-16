@@ -13,9 +13,7 @@ t_zone	*get_zone(unsigned int index)
 {
 	static t_zone	zones[ZONE_MAX];
 
-	if (index >= ZONE_MAX)
-		return (NULL);
-	return (&zones[index]);
+	return (index >= ZONE_MAX ? NULL : &zones[index]);
 }
 
 bool	*zones_are_init(void)

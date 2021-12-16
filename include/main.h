@@ -9,7 +9,7 @@
 # include <limits.h>
 # include <assert.h>
 
-# include "libft.h"
+# include "../libft/libft.h"
 
 enum			e_zones
 {
@@ -38,7 +38,7 @@ typedef struct	s_page
 {
 	int64_t		addr;
 	size_t		size;
-	int			frees;
+	int			free_space;
 }				t_page;
 
 typedef struct	s_zone
@@ -55,13 +55,20 @@ void			free(void *ptr);
 void			*malloc(size_t size);
 void			*realloc(void *ptr, size_t size);
 
-int             zones_init();
-
 void			show_alloc_mem();
 
-int				page_size();
+// ZONES
 t_zone			*get_zone(unsigned int index);
 bool			*zones_are_init();
+int             zones_init();
+// PAGES
+int				page_size();
+int         	set_pages(t_zone *zone, unsigned int nb_pages);
+// CHUNKS
+void        	*chunk_alloc(t_zone *zone, size_t size);
+t_chunk     	*chunk_find(t_zone **zone, int *index, void *ptr);
+void        	chunk_free(t_zone *zone, t_chunk *chunk, int index);
+
 bool			*debug();
 
 #endif
