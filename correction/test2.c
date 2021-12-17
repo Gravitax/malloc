@@ -1,16 +1,19 @@
-#include <stdio.h>
+#include "../include/main.h"
 
-void        *malloc(size_t size);
-void        free(void *ptr);
+
+// export LD_LIBRARY_PATH=/mnt/nfs/homes/maboye/workplace/malloc:$LD_LIBRARY_PATH
+// make
+// gcc -L"/mnt/nfs/homes/maboye/workplace/malloc" -o malloc correction/main.c -l"ft_mallocx86_64_Linux"
+// ./malloc
 
 int         main() {
+    char    *str;
     int     i = 0;
-    char    *addr;
 
     while (i < 1024) {
-        addr    = (char *)malloc(1024);
-        addr[0] = 42;
-        free(addr);
+        str = (char *)malloc(1024);
+        str[0] = 42;
+        free(str);
         ++i;
     }
     return (0);

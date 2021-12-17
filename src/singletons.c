@@ -1,6 +1,6 @@
 #include "main.h"
 
-int		page_size(void)
+int		page_size()
 {
 	static int	page_size = 0;
 
@@ -16,14 +16,14 @@ t_zone	*get_zone(unsigned int index)
 	return (index >= ZONE_MAX ? NULL : &zones[index]);
 }
 
-bool	*zones_are_init(void)
+bool	*zones_are_init()
 {
 	static bool	var = false;
 
 	return (&var);
 }
 
-bool	*debug(void)
+bool	*debug()
 {
 	static bool	value = false;
 

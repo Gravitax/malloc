@@ -1,7 +1,7 @@
 #ifndef MAIN_H
 # define MAIN_H
 
-# define MAX_NAME 64
+# define MAX_NAME 21
 # define MIN_ALLOC 100
 
 # include <stdio.h>
@@ -21,9 +21,9 @@ enum			e_zones
 
 enum			e_zone_size
 {
-	ZS_TINY = 16,
-	ZS_SMALL = 1024,
-	ZS_LARGE = INT_MAX
+	ZS_TINY		= 16,
+	ZS_SMALL	= 1024,
+	ZS_LARGE	= INT_MAX
 };
 
 typedef struct	s_chunk

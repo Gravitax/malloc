@@ -1,8 +1,13 @@
-#include <stdlib.h>
+#include "../include/main.h"
 
-int     main() {
+
+// export LD_LIBRARY_PATH=/mnt/nfs/homes/maboye/workplace/malloc:$LD_LIBRARY_PATH
+// make
+// gcc -L"/mnt/nfs/homes/maboye/workplace/malloc" -o malloc correction/main.c -l"ft_mallocx86_64_Linux"
+// ./malloc
+
+int         main() {
     int     i = 0;
-    char    *addr;
 
     while (i < 1024) {
         ++i;
