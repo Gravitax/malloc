@@ -1,13 +1,15 @@
 #include "main.h"
 
-static bool chunk_is_free(t_zone *zone, int64_t page_head, int page_index) {
+static bool chunk_is_free(t_zone *zone, int64_t chunk_addr, int page_index) {
     t_chunk *chunk;
     int     i = 0;
 
-    // on verifie si laddr peut etre stockee sur la page ciblee
+    // on verifie si un chunk nest pas deja stocke sur chunk_addr
     while (i < zone->chunks.nb_cells) {
         chunk = dyacc(&zone->chunks, i);
-		if (chunk->page == page_index && chunk->addr == page_head)
+        // si un chunk a lid de la page et que son addr est celle de chunk_addr
+        // alors lemplacement est occupe
+		if (chunk->page == page_index && chunk->addr == chunk_addr)
 			return (false);
 		++i;
     }
@@ -16,17 +18,17 @@ static bool chunk_is_free(t_zone *zone, int64_t page_head, int page_index) {
 
 static void *set_chunk(t_zone *zone, size_t size, t_page *page, int page_index) {
     t_chunk new_chunk;
-    int64_t page_head;
+    int64_t chunk_addr;
     int64_t page_length;
 
     *debug() ? ft_printf(1, "chunk\n-----\n") : 0;
 
-    page_head   = page->addr;
-    page_length = page_head + (int64_t)page_size();
+    chunk_addr  = page->addr;
+    page_length = chunk_addr + (int64_t)page_size();
     // on jump de page on page en verifiant si il y a des chunks libre
-    while (page_head < page_length) {
-        if (chunk_is_free(zone, page_head, page_index) == true) {
-            new_chunk.addr = page_head;
+    while (chunk_addr < page_length) {
+        if (chunk_is_free(zone, chunk_addr, page_index) == true) {
+            new_chunk.addr = chunk_addr;
             new_chunk.size = size;
             new_chunk.page = page_index;
             new_chunk.zone = zone->id;
@@ -34,16 +36,18 @@ static void *set_chunk(t_zone *zone, size_t size, t_page *page, int page_index) 
             if (*debug()) {
                 ft_printf(1, "zone id: %d\n", new_chunk.zone);
                 ft_printf(1, "size: %d\n", new_chunk.size);
-                ft_printf(1, "addr: %s\n", ft_itoa_base((int64_t)new_chunk.addr, 16));
+                ft_printf(1, "addr: %d\n", (int64_t)new_chunk.addr);
                 ft_printf(1, "page_index: %d\n", new_chunk.page);
+
+                ft_printf(1, "free chunks total: %d\n", zone->chunks_total);
             }
 
             if (dynarray_push(&zone->chunks, &new_chunk, false))
                 return (NULL);
             --page->free_space;
-            return((void *)page_head);
+            return((void *)chunk_addr);
         }
-        page_head += zone->chunks_size;
+        chunk_addr += zone->chunks_size;
     }
     return (NULL);
 }
@@ -64,8 +68,10 @@ static void *set_large_chunk(t_zone *zone, size_t size) {
         ft_printf(1, "large chunk\n-----\n");
         ft_printf(1, "zone id: %d\n", new_chunk.zone);
         ft_printf(1, "size: %d\n", new_chunk.size);
-        ft_printf(1, "addr: %s\n", ft_itoa_base((int64_t)new_chunk.addr, 16));
+        ft_printf(1, "addr: %d\n", (int64_t)new_chunk.addr);
         ft_printf(1, "page_index: %d\n", new_chunk.page);
+
+        ft_printf(1, "free chunks total: %d\n", zone->chunks_total);
     }
 
     if (dynarray_push(&zone->chunks, &new_chunk, false))
@@ -82,6 +88,7 @@ void        *chunk_alloc(t_zone *zone, size_t size) {
     // si cest large il ny a quun seul chunk
     if (zone->id == ZONE_LARGE)
         return (set_large_chunk(zone, size));
+    // on cherche une page avec un free space pour placer le chunk
     while (i < zone->pages.nb_cells) {
         page = dyacc(&zone->pages, i);
         if (page->free_space > 0)

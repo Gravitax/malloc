@@ -12,13 +12,14 @@ void		ft_printf(int fd, const char *str, ...);
 int         main() {
     char    *str    = NULL;
     int     i       = 0;
+    int     n       = 1;
 
-    // while (i < 1) {
+    while (i < n) {
         str = (char *)malloc(1024);
         str[0] = 42;
         free(str);
         ++i;
-    // }
+    }
     // ft_printf(1, "\nlength: %d\n%s\n", (int)ft_strlen(str), str);
     return (0);
 }

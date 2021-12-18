@@ -1,8 +1,12 @@
 #ifndef MAIN_H
 # define MAIN_H
 
-# define MAX_NAME 21
-# define MIN_ALLOC 100
+# define MAX_NAME	21
+# define MIN_ALLOC	100
+
+# define DEBUG_FREE		false
+# define DEBUG_MALLOC	false
+# define DEBUG_REALLOC	false
 
 # include <stdio.h>
 # include <sys/resource.h>
@@ -28,10 +32,10 @@ enum			e_zone_size
 
 typedef struct	s_chunk
 {
-	int64_t	addr;
-	size_t	size;
-	int		page;
-	int		zone;
+	int64_t		addr;
+	size_t		size;
+	int			page;
+	int			zone;
 }				t_chunk;
 
 typedef struct	s_page

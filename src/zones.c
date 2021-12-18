@@ -23,8 +23,7 @@ static int  set_zone(t_zone *zone, bool is_large) {
     nb_pages = is_large == true ? MIN_ALLOC : MIN_ALLOC / zone->chunks_total + 1;
 
     if (*debug()) {
-        ft_printf(1, "-----\nset zone\n");
-        ft_printf(1, "nb_pages: %d\n----------\n", (int)nb_pages);
+        ft_printf(1, "nb_pages: %d\n-----\n", (int)nb_pages);
     }
 
     // on cree les pages et les chunks pour chaque zones

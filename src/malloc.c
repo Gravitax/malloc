@@ -4,8 +4,11 @@
 
 void        *malloc(size_t size) {
     
-    *debug() = false;
-    *debug() ? ft_printf(1, "=====\nMALLOC\nsize: %d\n=====\n", (int)size) : 0;
+    *debug() = DEBUG_MALLOC;
+    if (*debug()) {
+        ft_printf(1, "=====\nMALLOC\n");
+        ft_printf(1, "size: %d\n=====\n", (int)size);
+    }
 
     if (size == 0)
         return (NULL);

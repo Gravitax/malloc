@@ -34,31 +34,40 @@ t_chunk     *chunk_find(t_zone **zone, int *index, void *ptr) {
         return (NULL);
 
     if (*debug()) {
+        ft_printf(1, "-----\nzone data\n");
         ft_printf(1, "chunk is in zone: %d\n", z->id);
         ft_printf(1, "chunks size: %d\n", z->chunks_size);
         ft_printf(1, "chunks total: %d\n", z->chunks_total);
+        ft_printf(1, "nb chunks: %d\n", z->chunks.nb_cells);
+        ft_printf(1, "nb page: %d\n", z->pages.nb_cells);
     }
 
     // on parcourt tout les chunks
     while (i < z->chunks.nb_cells) {
         chunk = dyacc(&z->chunks, i);
+
+         if (*debug()) {
+            ft_printf(1, "-----\nchunk data\n");
+            ft_printf(1, "zone id: %d\n", chunk->zone);
+            ft_printf(1, "size: %d\n", chunk->size);
+            ft_printf(1, "addr: %d\n", chunk->addr);
+            ft_printf(1, "page_index: %d\n-----\n", chunk->page);
+        }
+
         // si il y a occurence on renvoit la zone, le chunk et son page_index
         if (chunk->zone == z->id && chunk->addr == (int64_t)ptr) {
             *zone   = z;
             *index  = i;
 
             if (*debug()) {
-                ft_printf(1, "zone id: %d\n", chunk->zone);
-                ft_printf(1, "size: %d\n", chunk->size);
-                ft_printf(1, "addr: %s\n", ft_itoa_base((int64_t)chunk->addr, 16));
-                ft_printf(1, "page_index: %d\n", chunk->page);
+                ft_printf(1, "[[ chunk detected ]]\n-----\n");
             }
 
             return (chunk);
         }
         ++i;
     }
-    *debug() ? ft_printf(1, "[[ no chunk found ]]\n") : 0;
+    *debug() ? ft_printf(1, "[[ no chunk found ]]\n-----\n") : 0;
     return (NULL);
 }
 
@@ -82,8 +91,11 @@ void        free(void *ptr) {
     t_chunk *chunk;
     int     index;
 
-    *debug() = false;
-    *debug() ? ft_printf(1, "=====\nFREE\n=====\n") : 0;
+    *debug() = DEBUG_FREE;
+    if (*debug()) {
+        ft_printf(1, "=====\nFREE\n");
+        ft_printf(1, "ptr addr: %d\n=====\n", ptr);
+    }
 
     if (ptr == NULL || *zones_are_init() == false)
 		return ;
