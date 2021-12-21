@@ -67,9 +67,5 @@ void        *realloc(void *ptr, size_t size) {
 	}
     if (ptr == NULL || !(chunk = chunk_find(&zone, &index, ptr)))
 		return (addr_in_chunks((int64_t)ptr) ? NULL : addr_not_found(size));
-	// if (size == zone->chunks_size) {
-	// 	chunk->size = size;
-	// 	return ((void *)chunk->addr);
-	// }
 	return (new_allocation(zone, chunk, index, size));
 }
