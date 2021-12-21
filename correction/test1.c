@@ -1,16 +1,13 @@
 #include "../include/main.h"
 
-int		main()
-{
-	int		i;
-	char	*addr;
+int		main() {
+	char	*addr = NULL;
+	int		i = 0;
 
-	i = 0;
-	while (i < 1024)
-	{
-		addr = (char*)malloc(1024);
+	while (i < 1024) {
+		addr = (char *)malloc(1024);
 		addr[0] = 42;
-		i++;
+		++i;
 	}
 	return (0);
 }

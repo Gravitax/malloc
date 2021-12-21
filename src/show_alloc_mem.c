@@ -1,7 +1,6 @@
-#include "main.h"
+#include "../include/main.h"
 
-static int	addresses_sort_func(void *cell_a, void *cell_b)
-{
+static int	addresses_sort_func(void *cell_a, void *cell_b) {
 	const t_chunk	*a = cell_a;
 	const t_chunk	*b = cell_b;
 	int64_t			offset;
@@ -12,8 +11,7 @@ static int	addresses_sort_func(void *cell_a, void *cell_b)
 	return (0);
 }
 
-static void	print_zone_title(t_zone *zone)
-{
+static void	print_zone_title(t_zone *zone) {
 	char	addr[32];
 	char	display[32];
 
@@ -26,8 +24,7 @@ static void	print_zone_title(t_zone *zone)
 	fflush(stdout);
 }
 
-static void	print_chunk(size_t start_addr, size_t end_addr, size_t size)
-{
+static void	print_chunk(size_t start_addr, size_t end_addr, size_t size) {
 	char	start[32];
 	char	end[32];
 	char	s[16];
@@ -49,8 +46,7 @@ static void	print_chunk(size_t start_addr, size_t end_addr, size_t size)
 	ft_putendl(display);
 }
 
-static void	print_zone_chunks(t_zone *zone, int *total)
-{
+static void	print_zone_chunks(t_zone *zone, int *total) {
 	t_dynarray	dump;
 	t_chunk		*chunk;
 
@@ -68,8 +64,7 @@ static void	print_zone_chunks(t_zone *zone, int *total)
 	dynarray_free(&dump);
 }
 
-void	    show_alloc_mem()
-{
+void	    show_alloc_mem() {
 	t_zone	*zone;
 	int		total = 0;
 

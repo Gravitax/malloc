@@ -1,4 +1,4 @@
-#include "main.h"
+#include "../include/main.h"
 
 #include <stdio.h>
 
@@ -19,9 +19,8 @@ void        *malloc(size_t size) {
     unsigned int    i = 0;
 
     while (i < ZONE_MAX) {
-        if (size > sizes[i] && size <= sizes[i + 1]) {
+        if (size > sizes[i] && size <= sizes[i + 1])
             return (chunk_alloc(get_zone(i), size));
-        }
         ++i;
     }
     return (NULL);

@@ -1,4 +1,4 @@
-#include "main.h"
+#include "../include/main.h"
 
 static int      zone_find(void *ptr) {
     t_zone  *zone;
@@ -6,7 +6,7 @@ static int      zone_find(void *ptr) {
     int     i = 0;
     int     j;
 
-    // on parcourt toutes les zones
+	// on verifie si l'addr du ptr est contenu dans l'addr des pages des zones
     while (i < ZONE_LARGE) {
         j = 0;
         zone = get_zone(i);
@@ -21,7 +21,7 @@ static int      zone_find(void *ptr) {
         }
         ++i;
     }
-    // si aucune occurence il faut encore verifier ZONE_LARGE car il ny a pas de page
+    // si aucune occurence il faut encore verifier les pages (chunks) de ZONE_LARGE
     return (ZONE_LARGE);
 }
 
@@ -37,7 +37,7 @@ t_chunk     *chunk_find(t_zone **zone, int *index, void *ptr) {
         ft_printf(1, "-----\nzone data\n");
         ft_printf(1, "chunk is in zone: %d\n", z->id);
         ft_printf(1, "chunks size: %d\n", z->chunks_size);
-        ft_printf(1, "chunks total: %d\n", z->chunks_total);
+        ft_printf(1, "chunks per page: %d\n", z->chunks_ppage);
         ft_printf(1, "nb chunks: %d\n", z->chunks.nb_cells);
         ft_printf(1, "nb page: %d\n", z->pages.nb_cells);
     }
@@ -50,7 +50,7 @@ t_chunk     *chunk_find(t_zone **zone, int *index, void *ptr) {
             ft_printf(1, "-----\nchunk data\n");
             ft_printf(1, "zone id: %d\n", chunk->zone);
             ft_printf(1, "size: %d\n", chunk->size);
-            ft_printf(1, "addr: %d\n", chunk->addr);
+            ft_printf(1, "addr: %d ptr: %d\n", chunk->addr, (int64_t)ptr);
             ft_printf(1, "page_index: %d\n-----\n", chunk->page);
         }
 
@@ -59,14 +59,12 @@ t_chunk     *chunk_find(t_zone **zone, int *index, void *ptr) {
             *zone   = z;
             *index  = i;
 
-            if (*debug()) {
-                ft_printf(1, "[[ chunk detected ]]\n-----\n");
-            }
-
+            *debug() ? ft_printf(1, "[[ chunk detected ]]\n-----\n") : 0;
             return (chunk);
         }
         ++i;
     }
+
     *debug() ? ft_printf(1, "[[ no chunk found ]]\n-----\n") : 0;
     return (NULL);
 }
@@ -74,11 +72,11 @@ t_chunk     *chunk_find(t_zone **zone, int *index, void *ptr) {
 void        chunk_free(t_zone *zone, t_chunk *chunk, int index) {
     t_page  *page;
 
-    // si zone large alors pas de page il suffit de le unmap
+    // si zone large il suffit de unmap le chunk
     if (zone->id == ZONE_LARGE)
         munmap((void *)chunk->addr, chunk->size);
     else {
-        // on actualise la page ou ce trouvait le chunk
+        // on libere de l'espace sur la page ou ce trouve le chunk
         page = dyacc(&zone->pages, chunk->page);
         ++page->free_space;
     }

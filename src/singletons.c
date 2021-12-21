@@ -1,7 +1,6 @@
-#include "main.h"
+#include "../include/main.h"
 
-int		page_size()
-{
+int		page_size() {
 	static int	page_size = 0;
 
 	if (page_size == 0)
@@ -9,22 +8,19 @@ int		page_size()
 	return (page_size);
 }
 
-t_zone	*get_zone(unsigned int index)
-{
+t_zone	*get_zone(unsigned int index) {
 	static t_zone	zones[ZONE_MAX];
 
 	return (index >= ZONE_MAX ? NULL : &zones[index]);
 }
 
-bool	*zones_are_init()
-{
+bool	*zones_are_init() {
 	static bool	var = false;
 
 	return (&var);
 }
 
-bool	*debug()
-{
+bool	*debug() {
 	static bool	value = false;
 
 	return (&value);

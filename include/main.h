@@ -51,7 +51,7 @@ typedef struct	s_zone
 	t_dynarray	chunks;
 	char		name[MAX_NAME];
 	size_t		chunks_size;
-	int			chunks_total;
+	int			chunks_ppage;
 	int			id;
 }				t_zone;
 

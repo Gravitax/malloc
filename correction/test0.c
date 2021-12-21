@@ -1,12 +1,7 @@
-int		main()
-{
-	int		i;
-	char	*addr;
+int		main() {
+	int		i = -1;
 
-	i = 0;
-	while (i < 1024)
-	{
-		i++;
-	}
+	while (++i < 1024)
+		;
 	return (0);
 }

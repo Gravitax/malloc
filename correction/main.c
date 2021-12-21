@@ -15,9 +15,10 @@ int         main() {
     int     n       = 1;
 
     while (i < n) {
-        str = (char *)malloc(1024);
-        str[0] = 42;
-        free(str);
+		str = malloc(4096 * 2 + 10);
+		str = realloc(str, 1);
+		ft_printf(1, "\n[[ SHOW ALLOC MEM ]]\n");
+		show_alloc_mem();
         ++i;
     }
     // ft_printf(1, "\nlength: %d\n%s\n", (int)ft_strlen(str), str);
