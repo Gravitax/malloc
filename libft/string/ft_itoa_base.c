@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa_base.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maboye <maboye@student.42.fr>              +#+  +:+       +#+        */
+/*   By: maboye <marcaboye@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 13:36:44 by maboye            #+#    #+#             */
-/*   Updated: 2021/12/17 14:33:39 by maboye           ###   ########.fr       */
+/*   Updated: 2021/12/22 11:43:28 by maboye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char			*ft_itoa_base(int nb, int base)
 
 	if (base < 2 || base > 36)
 		return (NULL);
-	if (!(str = (char *)alloc_content(sizeof(char) * 32)))
+	if (!(str = (char *)ft_memalloc(sizeof(char) * 32)))
 		return (NULL);
 	i = 0;
 	if (nb < 0)
