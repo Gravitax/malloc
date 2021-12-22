@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: maboye <maboye@student.42.fr>              +#+  +:+       +#+         #
+#    By: maboye <marcaboye@gmail.com>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 11:17:40 by maboye            #+#    #+#              #
-#    Updated: 2020/08/10 20:12:29 by maboye           ###   ########.fr        #
+#    Updated: 2021/12/22 09:57:18 by maboye           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,8 +41,7 @@ S_ARRAY	=	ft_arr_cprint.c\
 			ft_arrfree.c\
 			ft_arrlen.c
 
-S_CHAR	=	ft_inbounds.c\
-			ft_isalnum.c\
+S_CHAR	=	ft_isalnum.c\
 			ft_isalpha.c\
 			ft_isdigit.c\
 			ft_ishexa.c\
@@ -88,7 +87,6 @@ S_STRING =	ft_abs.c\
 			ft_intlen.c\
 			ft_itoa_base.c\
 			ft_itoa.c\
-			ft_mmapfile.c\
 			ft_readfile.c\
 			ft_strcat.c\
 			ft_strchr.c\

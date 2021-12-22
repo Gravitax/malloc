@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putendl.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maboye <maboye@student.42.fr>              +#+  +:+       +#+        */
+/*   By: maboye <marcaboye@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 13:19:48 by maboye            #+#    #+#             */
-/*   Updated: 2020/08/08 18:13:38 by maboye           ###   ########.fr       */
+/*   Updated: 2021/12/22 09:54:22 by maboye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 void			ft_putendl(char const *str)
 {
-	str ? ft_putendl_fd(str, 1) : 0;
+	ft_putendl_fd(str, 1);
 }

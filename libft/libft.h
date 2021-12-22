@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maboye <maboye@student.42.fr>              +#+  +:+       +#+        */
+/*   By: maboye <marcaboye@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/06 11:28:45 by maboye            #+#    #+#             */
-/*   Updated: 2020/08/10 20:36:28 by maboye           ###   ########.fr       */
+/*   Updated: 2021/12/22 09:57:24 by maboye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void			ft_arr_cprint(char **arr);
 void			ft_arrfree(void **arr);
 int				ft_arrlen(void **arr);
 
-bool            ft_inbounds(int c, int min, int max);
 bool			ft_isalnum(int c);
 bool			ft_isalpha(int c);
 bool			ft_isascii(int c);
@@ -75,7 +74,6 @@ void			ft_convert_base(char *res, size_t val, char *base_to);
 int				ft_intlen(int nb);
 char			*ft_itoa_base(int nb, int base);
 char			*ft_itoa(int nb);
-char			*ft_mmapfile(char *file_path);
 char			*ft_readfile(char *file_path);
 char			*ft_strcat(char *dst, const char *src);
 char			*ft_strchr(const char *str, int c);

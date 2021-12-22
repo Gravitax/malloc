@@ -34,7 +34,7 @@ t_chunk     *chunk_find(t_zone **zone, int *index, void *ptr) {
         return (NULL);
 
     if (*debug()) {
-        ft_printf(1, "-----\nzone data\n");
+        ft_printf(1, "=====\n{ zone data }\n");
         ft_printf(1, "chunk is in zone: %d\n", z->id);
         ft_printf(1, "chunks size: %d\n", z->chunks_size);
         ft_printf(1, "chunks per page: %d\n", z->chunks_ppage);
@@ -47,7 +47,7 @@ t_chunk     *chunk_find(t_zone **zone, int *index, void *ptr) {
         chunk = dyacc(&z->chunks, i);
 
          if (*debug()) {
-            ft_printf(1, "-----\nchunk data\n");
+            ft_printf(1, "=====\n{ chunk data }\n");
             ft_printf(1, "zone id: %d\n", chunk->zone);
             ft_printf(1, "size: %d\n", chunk->size);
             ft_printf(1, "addr: %d ptr: %d\n", chunk->addr, (int64_t)ptr);
@@ -58,13 +58,11 @@ t_chunk     *chunk_find(t_zone **zone, int *index, void *ptr) {
         if (chunk->zone == z->id && chunk->addr == (int64_t)ptr) {
             *zone   = z;
             *index  = i;
-
             *debug() ? ft_printf(1, "[[ chunk detected ]]\n-----\n") : 0;
             return (chunk);
         }
         ++i;
     }
-
     *debug() ? ft_printf(1, "[[ no chunk found ]]\n-----\n") : 0;
     return (NULL);
 }
@@ -82,6 +80,7 @@ void        chunk_free(t_zone *zone, t_chunk *chunk, int index) {
     }
     // on supprime le chunk
     dynarray_extract(&zone->chunks, index);
+	*debug() ? ft_printf(1, "[[ chunk free ]]\n-----\n") : 0;
 } 
 
 void        free(void *ptr) {
@@ -91,8 +90,8 @@ void        free(void *ptr) {
 
     *debug() = DEBUG_FREE;
     if (*debug()) {
-        ft_printf(1, "=====\nFREE\n");
-        ft_printf(1, "ptr addr: %d\n=====\n", ptr);
+        ft_printf(1, "==========\n[[ FREE ]]\n");
+        ft_printf(1, "ptr addr: %d\n==========\n", ptr);
     }
 
     if (ptr == NULL || *zones_are_init() == false)

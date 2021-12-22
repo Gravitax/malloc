@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dynarray.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maboye <maboye@student.42.fr>              +#+  +:+       +#+        */
+/*   By: maboye <marcaboye@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 18:02:41 by gedemais          #+#    #+#             */
-/*   Updated: 2021/12/16 19:57:01 by maboye           ###   ########.fr       */
+/*   Updated: 2021/12/22 10:45:21 by maboye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int				dynarray_init(t_dynarray *arr, int cell_size, int nb_cells)
 	arr->cell_size = cell_size;
 	arr->nb_cells = 0;
 	arr->byte_size = start_size(cell_size * nb_cells + 1);
+	arr->byte_size = arr->byte_size < cell_size ? cell_size * 2 : arr->byte_size;
 	if (arr->byte_size > 0
 		&& (!(arr->arr = alloc_content(arr->byte_size))
 		|| !(arr->tmp = alloc_content(arr->byte_size))))

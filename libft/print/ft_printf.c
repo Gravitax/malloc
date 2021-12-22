@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maboye <maboye@student.42.fr>              +#+  +:+       +#+        */
+/*   By: maboye <marcaboye@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 05:07:59 by maboye            #+#    #+#             */
-/*   Updated: 2020/08/08 18:10:46 by maboye           ###   ########.fr       */
+/*   Updated: 2021/12/22 09:55:35 by maboye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,15 @@ void			ft_printf(int fd, const char *str, ...)
 	if (!str)
 		return ;
 	va_start(args, str);
-	while (str && *str)
+	while (*str)
 	{
 		if (*str == '%')
 		{
 			++str;
 			if (*str == 's')
 				ft_putstr_fd(va_arg(args, char *), fd);
-			else if (*str == 'd')
+			else if (*str == 'd' || *str == 'c')
 				ft_putnbr_fd(va_arg(args, int), fd);
-			else if (*str == 'c')
-				ft_putchar_fd(va_arg(args, int), fd);
 			++str;
 		}
 		else

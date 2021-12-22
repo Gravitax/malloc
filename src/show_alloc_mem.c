@@ -53,8 +53,7 @@ static void	print_zone_chunks(t_zone *zone, int *total) {
 	if (dynarray_dump(&zone->chunks, &dump))
 		return ;
 	dynarray_bubblesort(&dump, addresses_sort_func);
-	for (int i = 0; i < dump.nb_cells; i++)
-	{
+	for (int i = 0; i < dump.nb_cells; i++) {
 		chunk = dyacc(&dump, i);
         if (chunk->size > 0) {
 		    *total += chunk->size;
@@ -68,12 +67,9 @@ void	    show_alloc_mem() {
 	t_zone	*zone;
 	int		total = 0;
 
-    if (*zones_are_init() == false) {
+    if (*zones_are_init() == false)
         return ;
-    }
-
-	for (unsigned int i = 0; i < ZONE_MAX; i++)
-	{
+	for (unsigned int i = 0; i < ZONE_MAX; i++) {
 		zone = get_zone(i);
 		print_zone_title(zone);
 		print_zone_chunks(zone, &total);

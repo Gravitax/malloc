@@ -21,7 +21,8 @@ static int  set_zone(t_zone *zone, bool is_large) {
     
     // pagesize / chunk_size = nb_chunks par page
 	// min alloc / nb_chunks par page = le nb de page pour respecter min alloc
-    nb_pages = is_large == true ? MIN_ALLOC : MIN_ALLOC / zone->chunks_ppage + 1;
+    nb_pages = is_large == true ? 0 : MIN_ALLOC / zone->chunks_ppage + 1;
+	*debug() ? ft_printf(1, "nb pages: %d\n", nb_pages) : 0;
 
     // on cree les pages et les chunks pour chaque zones
     if (dynarray_init(&zone->pages, sizeof(t_page), nb_pages) == -1)
@@ -40,8 +41,8 @@ int         zones_init() {
     unsigned int	i = 0;
 
     if (*debug()) {
-        ft_printf(1, "zones init\n");
-        ft_printf(1, "page_size: %d\n=====\n", page_size());
+        ft_printf(1, "=====\nzones init\n");
+        ft_printf(1, "page_size: %d\n-----\n", page_size());
     }
 
     while (i < ZONE_MAX) {
@@ -52,7 +53,7 @@ int         zones_init() {
         zone->chunks_ppage  = page_size() / (int)zone->chunks_size;
 
         if (*debug()) {
-            ft_printf(1, "id: %d\n", zone->id);
+            ft_printf(1, "{ id: %d }\n", zone->id);
             ft_printf(1, "chunks size: %d\n", zone->chunks_size);
             ft_printf(1, "chunks per page: %d\n", zone->chunks_ppage);
         }
@@ -61,7 +62,6 @@ int         zones_init() {
             return (-1);
         ++i;
     }
-
     *zones_are_init() = true;
     return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: maboye <marcaboye@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 18:04:36 by gedemais          #+#    #+#             */
-/*   Updated: 2021/12/21 16:40:52 by maboye           ###   ########.fr       */
+/*   Updated: 2021/12/22 10:09:35 by maboye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int				dynarray_push(t_dynarray *arr, void *src, bool front)
 	}
 	else
 		ft_memcpy((void *)(arr->arr + len), src, arr->cell_size);
+	++arr->nb_cells;
 	return (0);
 }
 

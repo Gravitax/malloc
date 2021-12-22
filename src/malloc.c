@@ -1,21 +1,7 @@
 #include "../include/main.h"
 
-#include <stdio.h>
-
-void        *malloc(size_t size) {
-    
-    *debug() = DEBUG_MALLOC;
-    if (*debug()) {
-        ft_printf(1, "=====\nMALLOC\n");
-        ft_printf(1, "size: %d\n=====\n", (int)size);
-    }
-
-    if (size == 0)
-        return (NULL);
-    if (*zones_are_init() == false && zones_init() == -1)
-        return (NULL);
-    
-    const size_t    sizes[ZONE_MAX + 1] = {0, ZS_TINY, ZS_SMALL, ZS_LARGE};
+static void	*new_allocation(size_t size) {
+	const size_t    sizes[ZONE_MAX + 1] = {0, ZS_TINY, ZS_SMALL, ZS_LARGE};
     unsigned int    i = 0;
 
     while (i < ZONE_MAX) {
@@ -24,4 +10,19 @@ void        *malloc(size_t size) {
         ++i;
     }
     return (NULL);
+}
+
+void        *malloc(size_t size) {
+    
+    *debug() = DEBUG_MALLOC;
+    if (*debug()) {
+        ft_printf(1, "==========\n[[ MALLOC ]]\n");
+        ft_printf(1, "size: %d\n==========\n", size);
+    }
+
+    if (size == 0)
+        return (NULL);
+    if (*zones_are_init() == false && zones_init() == -1)
+        return (NULL);
+    return (new_allocation(size));
 }

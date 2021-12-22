@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maboye <maboye@student.42.fr>              +#+  +:+       +#+        */
+/*   By: maboye <marcaboye@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 13:20:03 by maboye            #+#    #+#             */
-/*   Updated: 2020/08/08 18:14:24 by maboye           ###   ########.fr       */
+/*   Updated: 2021/12/22 09:54:10 by maboye           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 void			ft_putstr(char const *str)
 {
-	str ? ft_putstr_fd(str, 1) : 0;
+	ft_putstr_fd(str, 1);
 }
